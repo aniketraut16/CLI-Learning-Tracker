@@ -27,7 +27,7 @@ inquirer
           {
             type: "input",
             name: "topicGoal",
-            message: "What is your Goal in context to thi topic?",
+            message: "What is your Goal in context to this topic?",
           },
         ])
         .then((newtopic: any) => {
@@ -48,16 +48,19 @@ inquirer
         });
     } else if (answer.selectedOption === "View summary of all topics") {
       const topics = FetchTopics("all");
-      console.log(`TOPIC LIST \n ${topics}`);
+      for (const topic of topics) {
+        console.log(`Topic: ${topic.name}, Goal: ${topic.goal}`);
+        console.log("Progress: ", topic.status);
+        console.log("----------------------------------------");
+        console.log();
+      }
     } else {
       console.log("Other Options are not Implemented Yet");
     }
   })
   .catch((error: any) => {
     if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
     } else {
-      // Something else went wrong
       console.error(error);
     }
   });
